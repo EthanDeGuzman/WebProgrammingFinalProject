@@ -33,6 +33,7 @@ export class CardApiService {
     this.cardData.subscribe(
       data => console.log("getCardData: " + JSON.stringify(data))
     )
+    
     return this.cardData;
   }
 

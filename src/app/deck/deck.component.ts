@@ -19,6 +19,7 @@ export class DeckComponent implements OnInit {
       data => {this.cardData = data}
       )
       )
+      console.log("Console: " + this.cardData)
   }
 
   addTheCard(image:string, value:string, suit:string) :boolean{
