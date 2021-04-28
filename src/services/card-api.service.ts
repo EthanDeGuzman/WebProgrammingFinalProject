@@ -11,30 +11,33 @@ import {AngularFirestoreCollection, AngularFirestore} from '@angular/fire/firest
 
 export class CardApiService {
 
-  deckDataCollection:AngularFirestoreCollection<ICard>;
+  deckDataCollection:AngularFirestoreCollection<IDeck>;
 
-  cardData:Observable<ICard[]>;
+  cardData:Observable<IDeck[]>;
 
   apiDeckUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=5';
   apiUrl;
 
   constructor(private _http:HttpClient, private _afs:AngularFirestore) { 
-    this.deckDataCollection=_afs.collection<ICard>("deck_data");
+    this.deckDataCollection=_afs.collection<IDeck>("deck_data");
   }
 
   getDeckId(){
     return this._http.get<IDeck>(this.apiDeckUrl);
   }
 
-  getCard(deckId) : Observable<ICard[]>{
+  getCard(deckId) : Observable<IDeck[]>{
     console.log("DeckId: " + deckId);
-    this.apiUrl = 'https://deckofcardsapi.com/api/deck/' + deckId + '/draw/?count=2';
-    this.cardData = this._http.get<ICard[]>(this.apiUrl);
-    this.cardData.subscribe(
-      data => console.log("getCardData: " + JSON.stringify(data))
-    )
-    
-    return this.cardData;
+    this.apiUrl = 'https://deckofcardsapi.com/api/deck/' + deckId + '/draw/?count=4';
+    this.cardData = this._http.get<IDeck[]>(this.apiUrl);
+
+    return this._http.get<IDeck[]>(this.apiUrl)
+  
+    .pipe(
+      tap(data => console.log('string data:' + JSON.stringify(data)),
+    ),
+      catchError(this.handleError)
+    );
   }
 
   addCardData(card:ICard) : void{

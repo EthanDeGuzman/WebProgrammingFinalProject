@@ -3,7 +3,12 @@
 }
 
 .border{
-    width: 60%;
-    margin-left: 20%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     height: 30em;
+}
+
+.cardStyle{
+    margin-top: 12%;
 }

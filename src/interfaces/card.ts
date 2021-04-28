@@ -8,7 +8,7 @@ export interface ICard{
 
 export interface IDeck{
     deck_id:string;
-    cards:ICard[];
+    cards:ICard;
 }
 
 export class Card{
