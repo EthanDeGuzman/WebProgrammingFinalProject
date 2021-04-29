@@ -55,7 +55,7 @@ export class CardComponent implements OnInit {
    )
   }
 
-  //Adds the value of the cards drawn to the total points
+  //Adds the value of the cards drawn to the total points and also show drawn cards on HTML
   addPoints(){
     for (let i = 0; i < 2; i++) {
       console.log("Card " + i + ":" + this.cardData.cards[i].value);
@@ -72,28 +72,53 @@ export class CardComponent implements OnInit {
       }
     }
 
+    //Update Image source to the newly drawn card
+    var playerCard = document.getElementById("playerCard1") as HTMLImageElement;
+    var dealerCard = document.getElementById("dealerCard1") as HTMLImageElement;
+
+    playerCard.src = this.cardData.cards[0].image
     this.playerPoints += Number(this.cardData.cards[0].value);
+
     //If dealer is above 17 points then he automatically stands
     if(this.dealerPoints < 17){
+      dealerCard.src = this.cardData.cards[1].image
       this.dealerPoints += Number(this.cardData.cards[1].value);
     }
     //Log points to console for testing
     console.log("Player Points: " + this.playerPoints + "\nDealer Points: " + this.dealerPoints);
   }
 
+  //Checks the points of both player and dealer to see who won
   checkPoints(){
-    console.log( "CHECKING POINTS " + "Player Points: " + this.playerPoints + "\nDealer Points: " + this.dealerPoints);
+    console.log( "CHECKING POINTS: " + "Player Points: " + this.playerPoints + "\nDealer Points: " + this.dealerPoints);
+    var winner = document.getElementById("winner");
     if(this.playerPoints > 21){
       console.log("Dealer Wins!");
+      winner.innerHTML = "Player Busts, Dealer WINS!";
+    }
+    else if(this.playerPoints > 21 && this.dealerPoints > 21){
+      console.log("Dealer Wins!");
+      winner.innerHTML = "Player and Dealer Busts, Dealer WINS by default";
     }
     else if (this.playerPoints > this.dealerPoints){
       console.log("Player Wins!");
+      winner.innerHTML = "Player WINS!";
     }
     else if (this.playerPoints < this.dealerPoints){
       console.log("Dealer Wins!");
+      winner.innerHTML = "Dealer WINS!";
     }
     else if (this.playerPoints == this.dealerPoints){
       console.log("Its a Tie!");
+      winner.innerHTML = "It's a TIE!";
     }
+
+    //Hide the Hit and Stand Button as game is finished
+    var hitBtn = document.getElementById("hit");
+    var standBtn = document.getElementById("stand");
+
+    hitBtn.className= "d-none";
+    standBtn.className = "d-none";
   }
+
 }

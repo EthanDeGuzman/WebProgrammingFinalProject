@@ -16,5 +16,8 @@ export class AppComponent implements OnInit {
   ngOnInit(){
 
   }
-
+  
+  reloadPage() {
+    window.location.reload();
+ }
 }
