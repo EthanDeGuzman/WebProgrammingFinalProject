@@ -73,17 +73,26 @@ export class CardComponent implements OnInit {
     }
 
     //Update Image source to the newly drawn card
-    var playerCard = document.getElementById("playerCard1") as HTMLImageElement;
-    var dealerCard = document.getElementById("dealerCard1") as HTMLImageElement;
+    var playerCard = document.getElementById("imgPlayerContainer");
+    var dealerCard = document.getElementById("imgDealerContainer");
 
-    playerCard.src = this.cardData.cards[0].image
+    //Create Img tags for new drawn card
+      const playerImg = document.createElement('img');
+      const dealerImg = document.createElement('img');
+
+    //Append it inside the div
+    playerCard.appendChild(playerImg);
+    dealerCard.appendChild(dealerImg);
+
+    playerImg.src = this.cardData.cards[0].image
     this.playerPoints += Number(this.cardData.cards[0].value);
 
     //If dealer is above 17 points then he automatically stands
     if(this.dealerPoints < 17){
-      dealerCard.src = this.cardData.cards[1].image
+      dealerImg.src = this.cardData.cards[1].image
       this.dealerPoints += Number(this.cardData.cards[1].value);
     }
+
     //Log points to console for testing
     console.log("Player Points: " + this.playerPoints + "\nDealer Points: " + this.dealerPoints);
   }
@@ -95,6 +104,10 @@ export class CardComponent implements OnInit {
     if(this.playerPoints > 21){
       console.log("Dealer Wins!");
       winner.innerHTML = "Player Busts, Dealer WINS!";
+    }
+    else if (this.dealerPoints > 21){
+      console.log("Player Wins!")
+      winner.innerHTML = "Dealer Busts, Player WINS!";
     }
     else if(this.playerPoints > 21 && this.dealerPoints > 21){
       console.log("Dealer Wins!");
