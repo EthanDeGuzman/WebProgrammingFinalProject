@@ -21,17 +21,21 @@ export class DeckComponent implements OnInit {
         this._cardApiService.getCard(data.deck_id).subscribe(
           data => {
             this.cardData = JSON.parse(JSON.stringify(data))
+
+            //Add the four cards drawn from the deck to our firebase Database
+            for(let i = 0; i < 4; i++){
+              this.addTheCard(this.cardData.cards[i].image, this.cardData.cards[i].value, this.cardData.cards[i].suit);
+            }
           }
        )
       }
       )
   }
 
-  addTheCard(image:string, value:string, suit:string) :boolean{
-   // let tempCard:ICard;
-   // tempCard = new Card(image, value, suit);
-   // this._cardApiService.addCardData(tempCard);
+  addTheCard(image:string, value:string, suit:string):boolean{
+    let tempCard:ICard;
+    tempCard = new Card(image, value, suit);
+    this._cardApiService.addCardData(tempCard);
     return false;
-  }
-
+   }
 }

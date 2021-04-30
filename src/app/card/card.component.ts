@@ -51,6 +51,16 @@ export class CardComponent implements OnInit {
       data => {
         this.cardData = JSON.parse(JSON.stringify(data))
         this.addPoints();
+
+        //If a card is drawn and either player or dealer busts, automatically finish the game
+        if(this.playerPoints > 21 || this.dealerPoints > 21){
+          this.checkPoints();
+        }
+
+        //Add the cards drawn from the deck to our firebase Database
+        for(let i = 0; i < 2; i++){
+          this.addTheCard(this.cardData.cards[i].image, this.cardData.cards[i].value, this.cardData.cards[i].suit);
+        }
       }
    )
   }
@@ -99,7 +109,6 @@ export class CardComponent implements OnInit {
 
   //Checks the points of both player and dealer to see who won
   checkPoints(){
-    console.log( "CHECKING POINTS: " + "Player Points: " + this.playerPoints + "\nDealer Points: " + this.dealerPoints);
     var winner = document.getElementById("winner");
     if(this.playerPoints > 21){
       console.log("Dealer Wins!");
@@ -134,4 +143,10 @@ export class CardComponent implements OnInit {
     standBtn.className = "d-none";
   }
 
+  addTheCard(image:string, value:string, suit:string):boolean{
+    let tempCard:ICard;
+    tempCard = new Card(image, value, suit);
+    this._cardApiService.addCardData(tempCard);
+    return false;
+   }
 }
