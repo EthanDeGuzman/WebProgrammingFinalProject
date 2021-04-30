@@ -23,7 +23,7 @@ export class CardComponent implements OnInit {
   }
 
   addInitialTotalPoints(){
-    //Loop through cards to check for ACE, JACK, QUEEN, KING
+    //Loop through cards to check for ACE, JACK, QUEEN, KING and give its respective value
     for (let i = 0; i < 4; i++) {
       console.log("Card " + i + ":" + this.cardData.cards[i].value);
       if(this.cardData.cards[i].value == "ACE"){
@@ -143,6 +143,7 @@ export class CardComponent implements OnInit {
     standBtn.className = "d-none";
   }
 
+  //Method to add our cards drawn into our database
   addTheCard(image:string, value:string, suit:string):boolean{
     let tempCard:ICard;
     tempCard = new Card(image, value, suit);

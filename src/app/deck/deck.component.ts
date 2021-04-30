@@ -32,6 +32,7 @@ export class DeckComponent implements OnInit {
       )
   }
 
+  //Method to add our cards drawn into our database
   addTheCard(image:string, value:string, suit:string):boolean{
     let tempCard:ICard;
     tempCard = new Card(image, value, suit);
