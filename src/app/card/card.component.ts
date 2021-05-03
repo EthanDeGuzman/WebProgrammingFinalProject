@@ -11,7 +11,6 @@ export class CardComponent implements OnInit {
 
   @Input() cardData:IDeck;
 
-  extraCard:IDeck;
 
   playerPoints;
   dealerPoints;
