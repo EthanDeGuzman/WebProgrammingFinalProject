@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ICard } from 'src/interfaces/card';
-import { CardApiService } from 'src/services/card-api.service';
+import { ICard } from 'src/app/interfaces/card';
+import { CardApiService } from 'src/app/services/card-api.service';
 
 @Component({
   selector: 'app-root',
