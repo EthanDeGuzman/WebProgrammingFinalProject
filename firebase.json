@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/blackjack",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
